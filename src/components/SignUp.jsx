@@ -1,58 +1,71 @@
-import React, { useState } from 'react'
-import { supabase } from '../supabaseClient'
-import { Link, useNavigate } from 'react-router-dom'
-import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa'
-import logo from '../assets/images/logo.svg'
+import React, { useState } from 'react';
+import { supabase } from '../supabaseClient';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
+import logo from '../assets/images/logo.svg';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [fullName, setFullName] = useState("")  // ✅ full name state
-  const [showPassword, setShowPassword] = useState(false)
-  const [passwordStrength, setPasswordStrength] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const toastOptions = {
+    position: "top-right",
+    style: {
+      backgroundColor: '#2563eb', // Tailwind blue-600
+      color: 'white',
+      padding: '6px 10px',
+      fontSize: '12px',
+      minHeight: '30px',
+    },
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
-            full_name: fullName  // ✅ send to user_metadata
+            full_name: fullName
           }
         }
-      })
+      });
       if (error) {
         console.log(error.message, "supabase error");
-        alert("getting error")
-      }
-      else {
+        toast.error("Signup failed!", toastOptions);
+      } else {
         console.log(data, "SignUp successful data");
-        alert("SignUp successful")
-        navigate("/dashboardpage")
+        toast.success("Signup successful", toastOptions);
+        navigate("/dashboardpage");
       }
     } catch (error) {
       console.log("unexpected Error", error.message);
-      alert("code error")
+      toast.error("Unexpected code error", toastOptions);
     }
-  }
+  };
 
   const checkStrength = (value) => {
-    setPassword(value)
+    setPassword(value);
     if (value.length < 6) {
-      setPasswordStrength("Weak")
+      setPasswordStrength("Weak");
     } else if (value.match(/[A-Z]/) && value.match(/[0-9]/) && value.match(/[@$!%*?&]/)) {
-      setPasswordStrength("Strong")
+      setPasswordStrength("Strong");
     } else {
-      setPasswordStrength("Medium")
+      setPasswordStrength("Medium");
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <ToastContainer theme="colored" />
       <div className="bg-white p-4 rounded-2xl shadow-lg w-full max-w-md">
         <div className="flex justify-center mb-2">
           <div>
@@ -71,7 +84,7 @@ const SignUp = () => {
               className="w-full rounded-md focus:border-blue-500 border-gray-300 px-4 shadow-sm py-2 pl-4 pr-10 focus:outline-none focus:ring focus:ring-blue-200"
               required
               placeholder='Full name'
-              onChange={(e) => setFullName(e.target.value)}  // ✅ bind to state
+              onChange={(e) => setFullName(e.target.value)}
             />
           </div>
           <div>
@@ -146,7 +159,7 @@ const SignUp = () => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

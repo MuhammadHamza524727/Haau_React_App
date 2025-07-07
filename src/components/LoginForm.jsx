@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { supabase } from '../supabaseClient'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import logo from '../assets/images/logo.svg'
 
 const LoginForm = () => {
@@ -21,15 +23,32 @@ const LoginForm = () => {
       })
       if (error) {
         console.log(error.message, "supabase error");
-        alert("Connections error!")
+        toast.error("Connection error!", {
+          position: "top-right",
+           style: { backgroundColor: '#3182ce', color: 'white' },
+        })
       } else {
-        console.log(data, "SignIn successfull data");
-        alert("SignIn successfull")
-        navigate("/dashboardpage")
+        console.log(data, "SignIn successful data");
+        toast.success("Sign In successful!", {
+          position: "top-right",
+          style: {
+    backgroundColor: '#2563eb', 
+    color: 'white',
+    padding: '6px 10px',
+    fontSize: '12px',
+    minHeight: '30px',
+  },
+
+        })
+        setTimeout(() => navigate("/dashboardpage"), 1500)
       }
     } catch (error) {
-      console.log("unexpected Error", error.message);
-      alert("Unexpected error!")
+      console.log("Unexpected Error", error.message);
+      toast.error("Unexpected error!", {
+        position: "top-right",
+           style: { backgroundColor: '#3182ce', color: 'white' },
+
+      })
     }
   }
 
@@ -47,6 +66,7 @@ const LoginForm = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <ToastContainer theme="colored" />
       <div className="bg-white p-4 rounded-2xl shadow-lg w-full max-w-md">
         <div className="flex justify-center mb-6">
           <div>
