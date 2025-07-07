@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Button from "./ui/button";
 
 export default function OnboardingCard() {
   return (
@@ -9,7 +8,7 @@ export default function OnboardingCard() {
           src="/src/assets/images/chat.jpg"
           alt="Team working on laptop"
           className="w-full h-64 object-cover"
-          
+
         />
         <div className="p-6 text-center">
           <h2 className="text-xl font-semibold text-blue-600 tracking-widest">H A A U</h2>
@@ -22,8 +21,10 @@ export default function OnboardingCard() {
             <span className="w-2 h-2 bg-gray-400 rounded-full"></span>
             <span className="w-2 h-2 bg-gray-400 rounded-full"></span>
           </div>
-         <Link to="/loginpage">
-          <Button/>
+          <Link to="/loginpage">
+            <button className="mt-6   bg-blue-600 text-white py-2 px-4  rounded-lg hover:bg-blue-700 transition duration-200">
+              Get started
+            </button>
           </Link>
         </div>
       </div>
