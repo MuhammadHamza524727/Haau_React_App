@@ -6,6 +6,7 @@ import SearchBar from './ui/SearchBar';
 import ProfileCard from '../components/me/ProfileCard';
 import ProfileModal from './ProfileModel';
 import logoremove from '../assets/images/logo-remove.png'
+import profileJPG from '../assets/images/profile.JPG'
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -58,7 +59,7 @@ const Navbar = () => {
                 handle="Hamzahere"
                 status="Online"
                 contactText="Contact Me"
-                avatarUrl="/src/assets/images/profile.JPG"
+                avatarUrl={profileJPG}
                 showUserInfo={true}
                 enableTilt={true}
                 onContactClick={() => console.log('Contact clicked')}
