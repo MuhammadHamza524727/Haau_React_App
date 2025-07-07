@@ -23,6 +23,11 @@ const ProfileUpdate = () => {
       .eq('user_id', user.id)
       .single();
 
+    if (error) {
+      console.error(error);
+      return;
+    }
+
     if (data) {
       setFullName(data.full_name || '');
     }
@@ -72,8 +77,10 @@ const ProfileUpdate = () => {
       console.error(error);
     } else {
       toast.success("Profile updated!", toastOptions);
+      loadProfile(); // ✅ fetch updated data after successful update
     }
 
+    setAvatarFile(null); // ✅ reset file input
     setLoading(false);
   };
 

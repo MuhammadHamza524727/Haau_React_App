@@ -140,39 +140,36 @@
 // };
 
 // export default PostCard;
-
-
 import React, { useEffect, useState } from "react";
 import { FaPaperclip, FaSmile, FaPaperPlane } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import Swal from 'sweetalert2';
-import userIcon from '../assets/images/user.png'; // Default icon
+import profileIcon from '../assets/images/profile.JPG'; // static icon
 import logoremove from '../assets/images/logo-remove.png';
 
 const PostCard = ({ onPostSuccess }) => {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [profileUrl, setProfileUrl] = useState(null);
+  const [profileUrl, setProfileUrl] = useState(profileIcon); // default
 
   useEffect(() => {
-    fetchUserProfile();
+    fetchProfileImage();
   }, []);
 
-  const fetchUserProfile = async () => {
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) return;
+  const fetchProfileImage = async () => {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error || !user) return;
 
-    const { data, error } = await supabase
+    const { data, error: profileError } = await supabase
       .from('profiles')
       .select('avatar_url')
       .eq('user_id', user.id)
       .single();
 
-    if (error) {
-      console.error("Profile fetch error:", error.message);
-      setProfileUrl(null);
+    if (profileError) {
+      console.error("Profile fetch error:", profileError.message);
       return;
     }
 
@@ -184,12 +181,10 @@ const PostCard = ({ onPostSuccess }) => {
 
       if (urlError) {
         console.error("Signed URL error:", urlError.message);
-        setProfileUrl(null);
+        setProfileUrl(profileIcon);
       } else {
         setProfileUrl(urlData.signedUrl);
       }
-    } else {
-      setProfileUrl(null);
     }
   };
 
@@ -269,7 +264,7 @@ const PostCard = ({ onPostSuccess }) => {
       <div className="flex flex-col gap-2 relative">
         <div className="flex items-center w-full space-x-2 relative">
           <img
-            src={profileUrl || userIcon}
+            src={profileUrl}
             alt="profile"
             className="w-10 h-10 rounded-full object-cover border"
           />

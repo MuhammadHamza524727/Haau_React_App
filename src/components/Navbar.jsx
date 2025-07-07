@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { FaHome, FaSearch, FaPlus, FaUser, FaHandshake, FaCommentAlt } from 'react-icons/fa';
 import LogoutButton from './LogoutButton';
