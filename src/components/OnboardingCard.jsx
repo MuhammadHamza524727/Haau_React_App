@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import chat from "../assets/images/chat.jpg"
 
 export default function OnboardingCard() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white rounded-2xl shadow-lg max-w-sm w-full overflow-hidden">
         <img
-          src="/src/assets/images/chat.jpg"
+          src={chat}
           alt="Team working on laptop"
           className="w-full h-64 object-cover"
 

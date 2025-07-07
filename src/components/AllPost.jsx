@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaThumbsUp, FaCommentAlt, FaShareAlt } from "react-icons/fa";
 import { supabase } from "../supabaseClient";
+import user from "../assets/images/user.png"
 
 const AllPost = ({ reloadTrigger }) => {
   const [posts, setPosts] = useState([]);
@@ -122,7 +123,7 @@ const AllPost = ({ reloadTrigger }) => {
       {userProfile && (
         <div className="max-w-md mx-auto flex items-center space-x-3 p-2 bg-white rounded shadow">
           <img
-            src={userProfile.avatar_signed_url || "/src/assets/images/user.png"}
+            src={userProfile.avatar_signed_url || {user}}
             alt="User Avatar"
             className="w-10 h-10 rounded-full object-cover"
           />
@@ -136,7 +137,7 @@ const AllPost = ({ reloadTrigger }) => {
           <div key={post.id} className="p-4 rounded-lg max-w-md mx-auto bg-white shadow-sm">
             <div className="flex items-center space-x-3 mb-2">
               <img
-                src="/src/assets/images/user.png"
+                src={user}
                 alt="user"
                 className="w-8 h-8 rounded-full"
               />
@@ -231,7 +232,7 @@ const AllPost = ({ reloadTrigger }) => {
                   <div key={cmt.id} className="bg-gray-50 p-2 rounded">
                     <div className="flex items-center gap-2">
                       <img
-                        src="/src/assets/images/user.png"
+                        src={user}
                         alt="user"
                         className="w-4 h-4 rounded-full"
                       />

@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { FaPaperclip, FaSmile, FaPaperPlane } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient";
+import profile from '../assets/images/profile.JPG'
+import logoremove from '../assets/images/logo-remove.png'
 
 const PostCard = ({ onPostSuccess }) => {
   const [message, setMessage] = useState("");
@@ -69,7 +71,7 @@ const PostCard = ({ onPostSuccess }) => {
       <div className="flex flex-col gap-2 relative">
         <div className="flex items-center w-full space-x-2 relative">
           <img
-            src="/src/assets/images/profile.JPG"
+            src={profile}
             alt="profile"
             className="w-10 h-10 rounded-full"
           />
@@ -100,7 +102,7 @@ const PostCard = ({ onPostSuccess }) => {
         <div className="flex space-x-2 items-center justify-around text-gray-500">
           <Link to="/postdoctorpage">
             <div className="flex items-center">
-              <img src="/src/assets/images/logo-remove.png" alt="ai" height={40} width={40} />
+              <img src={logoremove} alt="ai" height={40} width={40} />
               <p className="text-sm font-medium">Post Ai</p>
             </div>
           </Link>

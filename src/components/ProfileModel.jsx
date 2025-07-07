@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
+import user from '../assets/images/user.png'
 
 const ProfileModal = ({ onClose }) => {
   const [profile, setProfile] = useState(null);
@@ -97,7 +98,7 @@ const ProfileModal = ({ onClose }) => {
         <div className="flex flex-col items-center space-y-2">
           <div className="relative">
             <img
-              src={profile?.avatar_signed_url || "/src/assets/images/user.png"}
+              src={profile?.avatar_signed_url || {user}}
               alt="avatar"
               className="w-24 h-24 rounded-full object-cover border"
             />
