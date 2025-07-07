@@ -3,15 +3,11 @@
 // import user from '../assets/images/user.png';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
-// import { FiCamera, FiX } from 'react-icons/fi';
 
 // const ProfileModal = ({ onClose }) => {
 //   const [profile, setProfile] = useState(null);
 //   const [avatarFile, setAvatarFile] = useState(null);
 //   const [fullName, setFullName] = useState('');
-//   const [jobTitle, setJobTitle] = useState('Web Developer'); // Static example
-//   const [bio, setBio] = useState('Passionate about building great products.'); // Static example
-//   const [location, setLocation] = useState('Karachi, Pakistan'); // Static example
 //   const [loading, setLoading] = useState(false);
 
 //   useEffect(() => {
@@ -80,10 +76,7 @@
 //       .upsert({
 //         user_id: user.id,
 //         full_name: fullName,
-//         avatar_url,
-//         job_title: jobTitle,
-//         bio,
-//         location
+//         avatar_url
 //       });
 
 //     if (error) {
@@ -101,7 +94,7 @@
 //   const toastOptions = {
 //     position: "top-right",
 //     style: {
-//       backgroundColor: '#2563eb',
+//       backgroundColor: '#2563eb', // Tailwind blue-600
 //       color: 'white',
 //       padding: '6px 10px',
 //       fontSize: '12px',
@@ -110,47 +103,41 @@
 //   };
 
 //   return (
-//     <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md bg-black/30">
+//     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
 //       <ToastContainer theme="colored" />
-//       <div className="bg-white bg-opacity-90 backdrop-blur-lg p-6 rounded-lg shadow-xl w-full max-w-sm relative">
-//         <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
-//           <FiX size={20} />
-//         </button>
-//         <h2 className="text-xl font-bold text-center mb-6">Edit Profile</h2>
+//       <div className="bg-white p-6 rounded shadow-lg w-96 relative">
+//         <button onClick={onClose} className="absolute top-2 right-2 text-gray-500">X</button>
+//         <h2 className="text-lg font-bold mb-3">Your Profile</h2>
 
-//         <div className="flex flex-col items-center space-y-4">
-//           <div className="relative group">
+//         <div className="flex flex-col items-center space-y-2">
+//           <div className="relative">
 //             <img
 //               src={profile?.avatar_signed_url || user}
 //               alt="avatar"
-//               className="w-28 h-28 rounded-full object-cover border"
+//               className="w-24 h-24 rounded-full object-cover border"
 //             />
-//             <label className="absolute inset-0 bg-black bg-opacity-40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer transition">
-//               <FiCamera className="text-white text-xl" />
-//               <input
-//                 type="file"
-//                 className="hidden"
-//                 onChange={(e) => setAvatarFile(e.target.files[0])}
-//               />
-//             </label>
+//             <input
+//               type="file"
+//               className="absolute inset-0 opacity-0 cursor-pointer"
+//               onChange={(e) => setAvatarFile(e.target.files[0])}
+//               title="Click to change avatar"
+//             />
 //           </div>
 
 //           <input
 //             type="text"
-//             className="w-full border border-gray-300 rounded-md px-3 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-400"
+//             className="w-full border rounded px-2 py-1"
 //             placeholder="Full Name"
 //             value={fullName}
 //             onChange={(e) => setFullName(e.target.value)}
 //           />
 
-          
-
 //           <button
 //             onClick={updateProfile}
 //             disabled={loading}
-//             className="w-full bg-blue-600 text-white rounded-md py-2 hover:bg-blue-700 transition"
+//             className="bg-blue-500 text-white rounded px-4 py-2"
 //           >
-//             {loading ? "Updating..." : "Save Changes"}
+//             {loading ? "Updating..." : "Update Profile"}
 //           </button>
 //         </div>
 //       </div>
@@ -161,21 +148,17 @@
 // export default ProfileModal;
 
 
-
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import user from '../assets/images/user.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FiCamera, FiX } from 'react-icons/fi';
+import { FiCamera } from 'react-icons/fi';
 
 const ProfileModal = ({ onClose }) => {
   const [profile, setProfile] = useState(null);
   const [avatarFile, setAvatarFile] = useState(null);
   const [fullName, setFullName] = useState('');
-  const [jobTitle, setJobTitle] = useState('Web Developer');
-  const [bio, setBio] = useState('Passionate about building great products.');
-  const [location, setLocation] = useState('Karachi, Pakistan');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -244,10 +227,7 @@ const ProfileModal = ({ onClose }) => {
       .upsert({
         user_id: user.id,
         full_name: fullName,
-        avatar_url,
-        job_title: jobTitle,
-        bio,
-        location
+        avatar_url
       });
 
     if (error) {
@@ -274,12 +254,10 @@ const ProfileModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm bg-black/20">
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <ToastContainer theme="colored" />
-      <div className="bg-white bg-opacity-90 backdrop-blur-lg p-6 rounded-lg shadow-xl w-full max-w-sm relative">
-        <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
-          <FiX size={20} />
-        </button>
+      <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-sm relative">
+        <button onClick={onClose} className="absolute top-3 right-3 text-gray-500">X</button>
         <h2 className="text-xl font-bold text-center mb-6">Edit Profile</h2>
 
         <div className="flex flex-col items-center space-y-4">
